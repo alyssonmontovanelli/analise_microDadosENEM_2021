@@ -6,8 +6,8 @@ colPresenca = ['NU_INSCRICAO', 'TP_SEXO', 'TP_COR_RACA',
                    'SG_UF_PROVA', 'TP_PRESENCA_MT', 'TP_PRESENCA_LC']
 
 #panorama tipo de escola / nota final / redação
-colEscola_nota = ['NU_INSCRICAO', 'TP_ESCOLA', 'NU_NOTA_CN',
-                  'NU_NOTA_CH', 'NU_NOTA_CH', 'NU_NOTA_MT',
+colEscola_nota = ['NU_INSCRICAO', 'TP_ESCOLA', 'SG_UF_PROVA', 'NU_NOTA_CN',
+                  'NU_NOTA_LC', 'NU_NOTA_CH', 'NU_NOTA_MT',
                   'NU_NOTA_REDACAO']
 
 #panorama das principais dificuldades na prova de redação para alunos\
