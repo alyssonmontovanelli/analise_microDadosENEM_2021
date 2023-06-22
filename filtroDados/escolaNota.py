@@ -40,10 +40,13 @@ print(raca_porEscola)
 # Inscritos por tipo/escola que faltaram ou estava presentes 
 
 
+# 
+
+
 # Panorama tipo_escola com média geral
 media_tipoEscola = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
                   .loc[df_notaEscola['TP_ESCOLA'].isin([2,3])]\
-                  .groupby('TP_ESCOLA')['MEDIA_GERAL'].agg(['mean', 'median']).reset_index()
+                  .groupby('TP_ESCOLA')['NU_NOTA_CN','NU_NOTA_CH','NU_NOTA_LC','NU_NOTA_MT','NU_NOTA_REDACAO','MEDIA_GERAL'].agg(['mean']).reset_index()
 print(media_tipoEscola)
 
 # Panorama tipo_escola com nota para cada disciplina
