@@ -15,8 +15,8 @@ colEscola_nota = ['NU_INSCRICAO', 'TP_COR_RACA' , 'TP_ESCOLA', 'SG_UF_PROVA', 'N
 
 #panorama das principais dificuldades na prova de redação para alunos\
 #de rede publica e privada
-col_redacao = ['TP_ESCOLA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1',
+col_redacao = ['NU_INSCRICAO','TP_COR_RACA', 'TP_ESCOLA', 'SG_UF_PROVA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1',
                'NU_NOTA_COMP2', 'NU_NOTA_COMP3', 'NU_NOTA_COMP4',
-               'NU_NOTA_COMP5']
+               'NU_NOTA_COMP5','NU_NOTA_REDACAO']
 
 

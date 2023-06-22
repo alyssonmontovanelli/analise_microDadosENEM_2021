@@ -21,7 +21,6 @@ df_notaEscola['ELIMINADOS_CONC'] = np.where((df_notaEscola['NU_NOTA_CN'].isna())
 # Criação de coluna media geral dos alunos presentes nos dois dias de prova
 df_notaEscola.loc[df_notaEscola['ELIMINADOS_CONC'] == 'Presente', 'MEDIA_GERAL'] = df_notaEscola[['NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'NU_NOTA_MT', 'NU_NOTA_REDACAO']].mean(axis=1)
 
-
 # Média geral/UF - proporcional com a população
 media_UF = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente'].groupby('SG_UF_PROVA')['MEDIA_GERAL'].mean().reset_index()
 
@@ -39,21 +38,31 @@ print(raca_porEscola)
 
 # Inscritos por tipo/escola que faltaram ou estava presentes 
 
+inscritos_presentes = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
+                 .loc[df_notaEscola['TP_COR_RACA'].isin([1,2,3])]\
+                 .groupby(['TP_ESCOLA', 'TP_COR_RACA'])['TP_COR_RACA'].count()
+print(raca_porEscola)
 
-# 
 
 
 # Panorama tipo_escola com média geral
 media_tipoEscola = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
                   .loc[df_notaEscola['TP_ESCOLA'].isin([2,3])]\
-                  .groupby('TP_ESCOLA')['NU_NOTA_CN','NU_NOTA_CH','NU_NOTA_LC','NU_NOTA_MT','NU_NOTA_REDACAO','MEDIA_GERAL'].agg(['mean']).reset_index()
+                  .groupby('TP_ESCOLA')['NU_NOTA_CN','NU_NOTA_CH','NU_NOTA_LC','NU_NOTA_MT','NU_NOTA_REDACAO','MEDIA_GERAL']\
+                  .agg(['mean']).reset_index()
 print(media_tipoEscola)
-
-# Panorama tipo_escola com nota para cada disciplina
 
 # Panorama tipo_escola por UF - média de notas 
 
+media_tipoEscola_porUF = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
+                  .loc[df_notaEscola['TP_ESCOLA'].isin([2,3])]\
+                  .groupby(['SG_UF_PROVA','TP_ESCOLA'])['MEDIA_GERAL']\
+                  .agg(['mean'])
+print(media_tipoEscola_porUF)
+
 # Verificar regressão de notas boas para escola publica
+
+
 
 # Verificar regressão de notas boas para escola privada
 
