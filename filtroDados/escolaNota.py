@@ -6,7 +6,6 @@ df_notaEscola = pd.read_csv("C:\Projetos Pessoais\DataScience\/0_dados_pesados\d
 Testagem dos dados
 '''
 print(df_notaEscola.columns)
-print(df_notaEscola.describe())
 print(df_notaEscola.isna().sum())
 
 # Criar coluna com 'média geral'
@@ -23,18 +22,29 @@ df_notaEscola['ELIMINADOS_CONC'] = np.where((df_notaEscola['NU_NOTA_CN'].isna())
 df_notaEscola.loc[df_notaEscola['ELIMINADOS_CONC'] == 'Presente', 'MEDIA_GERAL'] = df_notaEscola[['NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'NU_NOTA_MT', 'NU_NOTA_REDACAO']].mean(axis=1)
 
 
-print(df_notaEscola.head())
-
-
 # Média geral/UF - proporcional com a população
+media_UF = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente'].groupby('SG_UF_PROVA')['MEDIA_GERAL'].mean().reset_index()
 
 # Média geral para alunos brancos e negros
+media_raca = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente'].groupby('TP_COR_RACA')['MEDIA_GERAL']\
+                                                                          .agg(['mean', 'median', 'std','count']).reset_index()
+print(media_raca)
 
-# Quantidade de alunos negros e brancos em escola publica/privada
+# Quantidade de alunos negros, brancos e pardos em escola publica/privada
+
+raca_porEscola = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
+                 .loc[df_notaEscola['TP_COR_RACA'].isin([1,2,3])]\
+                 .groupby(['TP_ESCOLA', 'TP_COR_RACA'])['TP_COR_RACA'].count()
+print(raca_porEscola)
 
 # Inscritos por tipo/escola que faltaram ou estava presentes 
 
+
 # Panorama tipo_escola com média geral
+media_tipoEscola = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
+                  .loc[df_notaEscola['TP_ESCOLA'].isin([2,3])]\
+                  .groupby('TP_ESCOLA')['MEDIA_GERAL'].agg(['mean', 'median']).reset_index()
+print(media_tipoEscola)
 
 # Panorama tipo_escola com nota para cada disciplina
 
