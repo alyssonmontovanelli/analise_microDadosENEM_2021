@@ -67,11 +67,33 @@ renda_porRaca_presente = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] 
                 .loc[df_socioEconomico['TP_COR_RACA'].isin([1,2,3])]\
                 .groupby('Q006')['TP_COR_RACA'].value_counts()
 
-print(renda_porRaca_geral)
-print(renda_porRaca_presente)
+# print(renda_porRaca_geral)
+# print(renda_porRaca_presente)
+
+# Panorama pessoas morando na casa com raça e nota media
+moradores_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
+                      .groupby('Q005')['MEDIA_GERAL'].agg(['mean', 'count'])
+# print(moradores_nota)
 
 
 # relação nível escolaridade mãe/pai com nota média 
+escolaridadePai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
+                      .groupby('Q001')['MEDIA_GERAL'].agg(['mean', 'count'])
 
+escolaridadeMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
+                      .groupby('Q002')['MEDIA_GERAL'].agg(['mean', 'count'])
+
+# print(escolaridadePai_nota)
+# print(escolaridadeMae_nota)
+
+# relação nível grupo de trabalho mãe/pai com nota média 
+ocupacaoPai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
+                      .groupby('Q003')['MEDIA_GERAL'].agg(['mean', 'count'])
+
+ocupacaoMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
+                      .groupby('Q004')['MEDIA_GERAL'].agg(['mean', 'count'])
+
+print(ocupacaoPai_nota)
+print(ocupacaoMae_nota)
 
 
