@@ -26,5 +26,10 @@ dfPresenca['ELIMINADOS_CONC'] = np.where((dfPresenca['TP_PRESENCA_LC'] == 0)\
 # Panorama por UF 
 presentesUF = dfPresenca.groupby(['SG_UF_PROVA', 'ELIMINADOS_CONC'])['NU_INSCRICAO'].count()
 
+# Panorama faixa etária
+
+
+#
+
 
 

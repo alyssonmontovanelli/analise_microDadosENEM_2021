@@ -20,3 +20,10 @@ col_redacao = ['NU_INSCRICAO','TP_COR_RACA', 'TP_ESCOLA', 'SG_UF_PROVA', 'TP_STA
                'NU_NOTA_COMP5','NU_NOTA_REDACAO']
 
 
+col_socioEconomico = ['NU_INSCRICAO', 'TP_COR_RACA', 'TP_ESCOLA','SG_UF_PROVA','NU_NOTA_CN',
+                  'NU_NOTA_LC', 'NU_NOTA_CH', 'NU_NOTA_MT',
+                  'NU_NOTA_REDACAO','Q001', 'Q002','Q003','Q004','Q005', 'Q006', 'Q025']
+
+
+
+

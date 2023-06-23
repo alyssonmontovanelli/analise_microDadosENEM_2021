@@ -36,5 +36,4 @@ status_redacao = df_Redacao[df_Redacao['ELIMINADOS_CONC'] == 'Presente']\
                   .agg(['count']).rename(columns={'count': 'Qtde alunos'})
                  
 
-
 print(status_redacao)
