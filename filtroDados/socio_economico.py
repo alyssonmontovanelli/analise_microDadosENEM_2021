@@ -97,3 +97,6 @@ print(ocupacaoPai_nota)
 print(ocupacaoMae_nota)
 
 
+
+
+'''Gráfico ocupação '''
