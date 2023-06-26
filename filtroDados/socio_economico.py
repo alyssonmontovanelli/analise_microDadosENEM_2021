@@ -58,7 +58,6 @@ renda_raca_notasENEM = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] ==
 # print(renda_raca_notasENEM)
 
 # Panorama renda com raça
-
 renda_porRaca_geral = df_socioEconomico\
                 .loc[df_socioEconomico['TP_COR_RACA'].isin([1,2,3])]\
                 .groupby('Q006')['TP_COR_RACA'].value_counts()
@@ -88,15 +87,22 @@ escolaridadeMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] ==
 
 # relação nível grupo de trabalho mãe/pai com nota média 
 ocupacaoPai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
-                      .groupby('Q003')['MEDIA_GERAL'].agg(['mean', 'count'])
+                      .groupby('Q003')['MEDIA_GERAL'].agg(['mean', 'count'])\
+                      .reset_index()\
+                      .rename(columns={'Q003':'Ocupação do Pai','mean': 'Nota Media', 'count': 'Quantidade'})
 
 ocupacaoMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
-                      .groupby('Q004')['MEDIA_GERAL'].agg(['mean', 'count'])
+                      .groupby('Q004')['MEDIA_GERAL'].agg(['mean', 'count'])\
+                      .reset_index()\
+                      .rename(columns={'Q004':'Ocupação da Mãe','mean': 'Nota Media', 'count': 'Quantidade'})
+
 
 print(ocupacaoPai_nota)
 print(ocupacaoMae_nota)
 
 
-
+'''
+PLOTAGEM
+'''
 
 '''Gráfico ocupação '''

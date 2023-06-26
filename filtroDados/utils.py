@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 
@@ -25,5 +25,6 @@ col_socioEconomico = ['NU_INSCRICAO', 'TP_COR_RACA', 'TP_ESCOLA','SG_UF_PROVA','
                   'NU_NOTA_REDACAO','Q001', 'Q002','Q003','Q004','Q005', 'Q006', 'Q025']
 
 
+# sns.color_palette("Spectral", as_cmap=True)
 
 
