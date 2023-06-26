@@ -25,8 +25,10 @@ df_notaEscola.loc[df_notaEscola['ELIMINADOS_CONC'] == 'Presente', 'MEDIA_GERAL']
 media_UF = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente'].groupby('SG_UF_PROVA')['MEDIA_GERAL'].mean().reset_index()
 
 # Média geral para alunos brancos e negros
-media_raca = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente'].groupby('TP_COR_RACA')['MEDIA_GERAL']\
-                                                                          .agg(['mean', 'median', 'std','count']).reset_index()
+media_raca = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
+            .loc[df_notaEscola['TP_ESCOLA'].isin([2,3])]\
+            .groupby('TP_COR_RACA')['MEDIA_GERAL']\
+            .agg(['mean', 'median', 'std','count']).reset_index()
 print(media_raca)
 
 # Quantidade de alunos negros, brancos e pardos em escola publica/privada
