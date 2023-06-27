@@ -4,9 +4,9 @@ df_notaEscola = pd.read_csv("C:\Projetos Pessoais\DataScience\/0_dados_pesados\d
 
 '''
 Testagem dos dados
-'''
-print(df_notaEscola.columns)
-print(df_notaEscola.isna().sum())
+# '''
+# print(df_notaEscola.columns)
+# print(df_notaEscola.isna().sum())
 
 # Criar coluna com 'média geral'
 # Criação de coluna generalista para "eliminados" e "presentes"
@@ -41,14 +41,14 @@ mapeamento_cor_raca = {
     5: 'Indígena'
 }
 media_raca['Cor/Raça'] = media_raca['Cor/Raça'].replace(mapeamento_cor_raca)
-print(media_raca)
+# print(media_raca)
 
 # Quantidade de alunos negros, brancos e pardos em escola publica/privada
 
 raca_porEscola = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']\
                  .loc[df_notaEscola['TP_COR_RACA'].isin([1,2,3])]\
                  .groupby(['TP_ESCOLA', 'TP_COR_RACA'])['TP_COR_RACA'].count()
-# print(raca_porEscola)
+print(raca_porEscola)
 
 # Inscritos por tipo/escola que faltaram ou estava presentes 
 
@@ -77,17 +77,19 @@ media_tipoEscola_porUF = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Pres
 PLOTAGEM
 '''
 cores2 = sns.color_palette("Set2")
+media_raca_sorted = media_raca.sort_values('Cor/Raça')
+
 """ Barplot - média por raça"""
-plt.figure(figsize=(8, 4))
-sns.barplot(x='Cor/Raça', y='Nota Média', data=media_raca)
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Cor/Raça', y='Nota Média', data=media_raca_sorted)
 sns.set_palette(cores2)
 # Adicionar os valores das barras no gráfico
-ax = sns.barplot(x='Cor/Raça', y='Nota Média', data=media_raca)
+ax = sns.barplot(x='Cor/Raça', y='Nota Média', data=media_raca_sorted)
 for p in ax.patches:
     ax.annotate(format(p.get_height(), '.2f'), (p.get_x() + p.get_width() / 2., p.get_height()), ha = 'center', va = 'center', xytext = (0, 10), textcoords = 'offset points')
 # Ajustar a estética do gráfico
 sns.set(style='whitegrid')
-plt.title('Média Geral por Cor/Raça')
+plt.title('Média de Nota Por Cor/Raça', y=1.03)
 plt.xlabel('Cor/Raça')
 plt.ylabel('Nota Média')
 plt.xticks(rotation = 20)
@@ -101,4 +103,18 @@ ax.spines['right'].set_visible(False)
 # plt.show()
 
 """ Pie - Qtde por raça """
-# Configurar a paleta de cores
+plt.figure(figsize=(12, 6))
+# Desenhar o gráfico de pizza com as quantidades
+wedges, texts, autotexts = plt.pie(media_raca_sorted['Quantidade'], labels=media_raca_sorted['Cor/Raça'],
+                                   autopct='%1.1f%%', startangle=100,colors=cores2)
+# Configurar as propriedades dos textos
+plt.setp(autotexts, size=12, color='black')
+# Limpar o círculo central
+centre_circle = plt.Circle((0, 0), 0.85, fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+# Calcular e exibir a quantidade total
+total = media_raca['Quantidade'].sum()
+plt.text(0, -0.4, 'Candidatos Presentes: {}'.format(total), ha='center', va='center', fontsize=10)
+plt.title('Proporção de Candidatos presentes por Cor/Raça', y=1.03)
+# plt.show()
