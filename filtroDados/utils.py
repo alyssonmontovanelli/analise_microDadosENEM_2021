@@ -27,4 +27,29 @@ col_socioEconomico = ['NU_INSCRICAO', 'TP_COR_RACA', 'TP_ESCOLA','SG_UF_PROVA','
 
 # sns.color_palette("Spectral", as_cmap=True)
 
+''' MAPEAMENTO COM BIBLIOTECAS, PARA CONVERSÃO DE MICRO DADO '''
+mapeamento_por_tipoEscola = {
+    1: 'Não informado',
+    2: 'Pública',
+    3: 'Privada'
+}
+
+mapeamento_cor_raca = {
+    0: 'Não declarado',
+    1: 'Branco',
+    2: 'Preto',
+    3: 'Pardo',
+    4: 'Amarelo',
+    5: 'Indígena'
+}
+
+mapeamento_nota_materia = {
+    'NU_NOTA_CN': 'Ciências da Natureza',
+    'NU_NOTA_LC': 'Linguagens e Códigos',
+    'NU_NOTA_CH': 'Ciências Humanas',
+    'NU_NOTA_MT': 'Matemática',
+    'NU_NOTA_REDACAO': 'Redação'
+}
+
+
 
