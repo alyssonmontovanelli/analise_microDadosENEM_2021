@@ -86,6 +86,10 @@ print(media_tipoEscola_porUF)
 '''
 PLOTAGEM
 '''
+
+
+
+
 cores2 = sns.color_palette("Set2")
 media_raca_sorted = media_raca.sort_values('Cor/Raça')
 
