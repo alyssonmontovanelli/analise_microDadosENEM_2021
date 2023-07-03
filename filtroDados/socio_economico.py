@@ -2,9 +2,6 @@ from utils import *
 
 df_socioEconomico = pd.read_csv("C:\Projetos Pessoais\DataScience\/0_dados_pesados\data\MICRODADOS_ENEM_2021.csv", sep= ";", encoding="ISO-8859-1", usecols=col_socioEconomico)
 
-# print(df_socioEconomico.head())
-# print(df_socioEconomico.columns)
-
 '''  MEMENTO ---
 Q001 - Até que série seu pai, ou o homem responsável por você, estudou?
 Q002 - Até que série sua mãe, ou a mulher responsável por você, estudou?
@@ -47,10 +44,6 @@ nota_internet = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Prese
 nota_internet['Q025'] = nota_internet['Q025'].replace(mapeamento_internet)
 nota_internet.rename(columns=mapeamento_nota_materia, inplace=True)
 
-
-# print(nota_internet)
-
-
 # panorama de renda com melhores médias no ENEM
 renda_raca_notasENEM = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
                        .loc[df_socioEconomico['TP_COR_RACA'].isin([1,2,3])]\
@@ -71,13 +64,10 @@ renda_porRaca_presente = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] 
                 .groupby('Q006')['TP_COR_RACA'].value_counts().reset_index(name="Quantidade")
 renda_porRaca_presente['TP_COR_RACA'] = renda_porRaca_presente['TP_COR_RACA'].replace(mapeamento_cor_raca)
 renda_porRaca_presente['Q006'] = renda_porRaca_presente['Q006'].replace(mapeamento_renda)
-# print(renda_porRaca_presente)
 
 # Panorama pessoas morando na casa com nota media
 moradores_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
                       .groupby('Q005')['MEDIA_GERAL'].agg(['mean', 'count'])
-# print(moradores_nota)
-
 
 # relação nível escolaridade mãe/pai com nota média 
 escolaridadePai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
@@ -85,31 +75,29 @@ escolaridadePai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] ==
 escolaridadePai_nota['Q001'] = escolaridadePai_nota['Q001'].replace(mapeamento_escolaridade_responsavel)
 escolaridadePai_nota.rename(columns={'Q001': 'Nível de Escolaridade'}, inplace=True)
 
-
 escolaridadeMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
                       .groupby('Q002')['MEDIA_GERAL'].agg(['mean']).reset_index()
 escolaridadeMae_nota['Q002'] = escolaridadeMae_nota['Q002'].replace(mapeamento_escolaridade_responsavel)
 escolaridadeMae_nota.rename(columns={'Q002': 'Nível de Escolaridade'}, inplace=True)
 
-
-print(escolaridadePai_nota)
-print(escolaridadeMae_nota)
-
 # relação nível grupo de trabalho mãe/pai com nota média 
 ocupacaoPai_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
-                      .groupby('Q003')['MEDIA_GERAL'].agg(['mean', 'count'])\
+                      .groupby('Q003')['MEDIA_GERAL'].agg(['mean'])\
                       .reset_index()\
-                      .rename(columns={'Q003':'Ocupação do Pai','mean': 'Nota Media', 'count': 'Quantidade'})
+                      .rename(columns={'Q003':'Ocupação','mean': 'Nota Media'})
+ocupacaoPai_nota['Ocupação'] = ocupacaoPai_nota['Ocupação'].replace(mapeamento_ocupacao)
+
 
 ocupacaoMae_nota = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
-                      .groupby('Q004')['MEDIA_GERAL'].agg(['mean', 'count'])\
+                      .groupby('Q004')['MEDIA_GERAL'].agg(['mean'])\
                       .reset_index()\
-                      .rename(columns={'Q004':'Ocupação da Mãe','mean': 'Nota Media', 'count': 'Quantidade'})
+                      .rename(columns={'Q004':'Ocupação','mean': 'Nota Media'})
+ocupacaoMae_nota['Ocupação'] = ocupacaoMae_nota['Ocupação'].replace(mapeamento_ocupacao)
 
-
-# print(ocupacaoPai_nota)
-# print(ocupacaoMae_nota)
-
+df_ocupacao = pd.merge(ocupacaoPai_nota, ocupacaoMae_nota, on='Ocupação', suffixes=('Q003', 'Q004'))
+df_melted2 = df_ocupacao.melt(id_vars='Ocupação', var_name='Responsavel', value_name='Média da Nota')
+df_melted2['Responsavel'] = df_melted2['Responsavel'].str.replace('Nota MediaQ003', 'Pai ou homem responsável')
+df_melted2['Responsavel'] = df_melted2['Responsavel'].str.replace('Nota MediaQ004', 'Mãe ou mulher responsável')
 
 
 
@@ -232,37 +220,61 @@ cores2 = sns.color_palette("Set2")
 
 """ CATPLOT - NOTA MÉDIA COM BASE NA ESCOLARIDADE DOS PAIS"""
 
-df_merged = pd.merge(escolaridadePai_nota, escolaridadeMae_nota, on='Nível de Escolaridade', suffixes=('Q001', 'Q002'))
+# df_merged = pd.merge(escolaridadePai_nota, escolaridadeMae_nota, on='Nível de Escolaridade', suffixes=('Q001', 'Q002'))
 
-df_melted = df_merged.melt(id_vars='Nível de Escolaridade', var_name='Variável', value_name='Média da Nota')
+# df_melted = df_merged.melt(id_vars='Nível de Escolaridade', var_name='Variável', value_name='Média da Nota')
 
-df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ001', 'Pai ou homem responsável')
-df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ002', 'Mãe ou mulher responsável')
+# df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ001', 'Pai ou homem responsável')
+# df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ002', 'Mãe ou mulher responsável')
 
-g4 = sns.catplot(data=df_melted, x='Nível de Escolaridade', 
-                 y='Média da Nota', palette="Set2",
-                 hue='Variável',aspect=1.5, kind='bar')
-g4.set_xticklabels(rotation=45)
-g4.set_xlabels('Nível de Escolaridade')
-g4.set_ylabels('Média da Nota')
+# g4 = sns.catplot(data=df_melted, x='Nível de Escolaridade', 
+#                  y='Média da Nota', palette="OrRd",
+#                  hue='Variável',aspect=1.5, kind='bar')
 
-ax = g4.facet_axis(0, 0)
+# ax = g4.facet_axis(0, 0)
+# g4.despine(left=True)
+# g4.set_axis_labels("Escolaridade dos responsáveis", "Nota Média")
+# plt.xticks(rotation=40, color='grey')
+# # plt.yticks(color = 'grey')
+# plt.ylim(400, 626)
+# ax.xaxis.set_tick_params(labelsize=8)
+# g4.legend.set_title("Índice")
+# plt.title("Nota Média por Nível de Escolaridade dos responsáveis", y=1.03)
+# plt.yticks(range(400, 626, 25), color='grey', fontsize = 8)
 
-g4.despine(left=True)
-g4.set_axis_labels("Escolaridade dos responsáveis", "Nota Média")
-plt.xticks(rotation=40, color='grey')
-# plt.yticks(color = 'grey')
-plt.ylim(400, 626)
-ax.xaxis.set_tick_params(labelsize=8)
-g4.legend.set_title("Índice")
-plt.title("Nota Média por Nível de Escolaridade dos responsáveis", y=1.03)
-plt.yticks(range(400, 626, 25), color='grey', fontsize = 8)
+# # Adicionar linhas de grade com intervalos de 25 em 25
+# for y in range(400, 626, 25):
+#     plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
 
-# Adicionar linhas de grade com intervalos de 25 em 25
-for y in range(400, 626, 25):
-    plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
+# plt.show()
 
-plt.show()
+
+""" CATPLOT - NOTA MÉDIA COM BASE NA OCUPAÇÃO DOS PAIS"""
+
+# g5 = sns.catplot(data=df_melted2, x='Ocupação', 
+#                  y='Média da Nota', palette="OrRd",
+#                  hue='Responsavel',aspect=1.2, kind='bar')
+
+# ax = g5.facet_axis(0, 0)
+# g5.despine(left=True)
+# g5.set_axis_labels("Ocupação dos responsáveis", "Nota Média")
+# plt.xticks(rotation=40, color='grey')
+# # plt.yticks(color = 'grey')
+# plt.ylim(400, 626)
+# ax.xaxis.set_tick_params(labelsize=8)
+# g5.legend.set_title("Índice")
+# plt.title("Nota Média por ocupação dos responsáveis", y=1.03)
+# plt.yticks(range(400, 626, 25), color='grey', fontsize = 8)
+
+# # Adicionar linhas de grade com intervalos de 25 em 25
+# for y in range(400, 626, 25):
+#     plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
+
+# plt.show()
+
+
+''''''
+
 
 
 # Load an example dataset with long-form data
