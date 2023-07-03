@@ -170,12 +170,15 @@ media_raca_sorted = media_raca.sort_values('Cor/Raça')
 #     g.annotate(round(row['Valor'], 2), (row['Nota'], row['Valor']),
 #                textcoords="offset points",fontsize=9, xytext=(0,10), ha='center')
 
-# plt.xticks(rotation=20)
+# plt.xticks(rotation=20, fontsize = 9, color = 'grey')
+# plt.yticks(fontsize = 9, color = 'grey')
 # plt.ylabel('Nota Média')
 # plt.xlabel('Matérias')
 # # # Borda top e right invisiveis
 # g.spines['top'].set_visible(False)
 # g.spines['right'].set_visible(False)
+# g.spines['left'].set_visible(False)
+
 # #Grid
 # g.yaxis.grid(True, alpha=0.1)
 # g.set_axisbelow(True)
@@ -183,6 +186,7 @@ media_raca_sorted = media_raca.sort_values('Cor/Raça')
 # g.set_xlabel(g.get_xlabel(), fontweight='bold')
 # g.set_ylabel(g.get_ylabel(), fontweight='bold')
 # plt.title('Nota Média por Tipo de Escola', y = 1.03, fontweight='bold')
+# plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 # plt.show()
 
 """ BARPLOT - NOTA MÉDIA POR UF -------------------------------------------"""

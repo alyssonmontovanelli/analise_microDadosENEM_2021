@@ -33,7 +33,6 @@ mapeamento_por_tipoEscola = {
     2: 'Pública',
     3: 'Privada'
 }
-
 mapeamento_cor_raca = {
     0: 'Não declarado',
     1: 'Branco',
@@ -42,15 +41,14 @@ mapeamento_cor_raca = {
     4: 'Amarelo',
     5: 'Indígena'
 }
-
 mapeamento_nota_materia = {
     'NU_NOTA_CN': 'Ciências da Natureza',
     'NU_NOTA_LC': 'Linguagens e Códigos',
     'NU_NOTA_CH': 'Ciências Humanas',
     'NU_NOTA_MT': 'Matemática',
-    'NU_NOTA_REDACAO': 'Redação'
+    'NU_NOTA_REDACAO': 'Redação',
+    'MEDIA_GERAL': 'Média Geral'
 }
-
 mapeamento_renda = {
     'A': 'Nenhuma Renda',
     'B': 'Até 1.100,00',
@@ -70,7 +68,27 @@ mapeamento_renda = {
     'P': '16.500,01 - 22.000,00',
     'Q': 'Acima de 22.000,00',
 }
+mapeamento_internet = {
+    'A': 'Sem acesso',
+    'B': 'Com acesso'
+}
 
+mapeamento_ocupacao = {
+    'A': 'Grupo 1',
+    'B': 'Grupo 2',
+    'C': 'Grupo 3',
+    'D': 'Grupo 4',
+    'E': 'Grupo 5',
+    'F': 'Sem resposta',
+}
 
-
-
+mapeamento_escolaridade_responsavel = {
+    'A': 'Nunca estudou',
+    'B': '5º Ano incompleto',
+    'C': '5º ano Completou',
+    'D': 'E.F completo',
+    'E': 'E.M completo',
+    'F': 'E.S completo',
+    'G': 'Pós-graduação',
+    'H': 'Sem resposta'
+}
