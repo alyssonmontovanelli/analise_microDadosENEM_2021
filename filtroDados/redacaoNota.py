@@ -1,4 +1,6 @@
 from utils import *
+import matplotlib.gridspec as gridspec
+
 
 
 # DF de presença
@@ -29,7 +31,6 @@ media_porCompetencia = df_Redacao[df_Redacao['ELIMINADOS_CONC'] == 'Presente']\
 print(media_porCompetencia)
 
 # panorama de status da redação 
-
 status_redacao = df_Redacao[df_Redacao['ELIMINADOS_CONC'] == 'Presente']\
                   .loc[df_Redacao['TP_ESCOLA'].isin([2,3])]\
                   .groupby(['TP_ESCOLA', 'TP_STATUS_REDACAO'])['TP_STATUS_REDACAO']\
@@ -84,53 +85,85 @@ PLOTAGEM
 
 
 
-""" STATUS REDAÇÃO ANULADAS / OK / QTDE """
-cores3 = sns.set_palette("OrRd")
-plt.figure(figsize=(12, 6))
-# Desenhar o gráfico de pizza com as quantidades
-wedges, texts, autotexts = plt.pie(status_redacao_total['Quantidade'], labels=status_redacao_total['TP_ESCOLA'],
-                                   autopct='%1.1f%%', startangle=143,colors=cores3)
-# Configurar as propriedades dos textos
-plt.setp(autotexts, size=12, color='black')
-# Limpar o círculo central
-centre_circle = plt.Circle((0, 0), 0.85, fc='white')
-fig = plt.gcf()
-fig.gca().add_artist(centre_circle)
-# Calcular e exibir a quantidade total
-total = status_redacao_total['Quantidade'].sum()
-plt.text(0, -0.4, 'Candidatos Presentes: {}'.format(total), ha='center', va='center', fontsize=10)
-plt.title('Panorama de Candidatos de Escola Pública e Particular', y = 1.01)
-plt.show()
+""" QUANTIDADE ALUNOS PUBLICA / PRIVADA """
 
-    
-# # Gráfico Lineplot
-# fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+novas_cores = sns.color_palette("OrRd", n_colors=2)
 
-# sns.lineplot(data=df_publica, x='TP_STATUS_REDACAO', y='Quantidade', ax=ax1, label='Pública')
-# sns.lineplot(data=df_privada, x='TP_STATUS_REDACAO', y='Quantidade', ax=ax1, label='Privada')
-
-# ax1.set_xlabel('Status da Redação')
-# ax1.set_ylabel('Quantidade')
-# ax1.set_title('Distribuição por Status da Redação')
-# ax1.legend()
-
-# # Gráfico de Pizza
-# contagem_sem_problemas_publica = df_publica[df_publica['TP_STATUS_REDACAO'] == 'Sem Problemas']['Quantidade'].iloc[0]
-# contagem_sem_problemas_privada = df_privada[df_privada['TP_STATUS_REDACAO'] == 'Sem Problemas']['Quantidade'].iloc[0]
-
-# contagem_sem_problemas = [contagem_sem_problemas_publica, contagem_sem_problemas_privada]
-# labels = ['Pública', 'Privada']
-
-# ax2.pie(contagem_sem_problemas, labels=labels, autopct='%1.1f%%', startangle=90)
-# ax2.set_title('Quantidade de "Sem Problemas"')
-
-# # Ajustar o layout
-# plt.tight_layout()
-
-# # Exibir a plotagem
+# plt.figure(figsize=(12, 6))
+# # Desenhar o gráfico de pizza com as quantidades
+# wedges, texts, autotexts = plt.pie(status_redacao_total['Quantidade'], labels=status_redacao_total['TP_ESCOLA'],
+#                                    autopct='%1.1f%%', startangle=143,colors=novas_cores)
+# # Configurar as propriedades dos textos
+# plt.setp(autotexts, size=12, color='black')
+# # Limpar o círculo central
+# centre_circle = plt.Circle((0, 0), 0.85, fc='white')
+# fig = plt.gcf()
+# fig.gca().add_artist(centre_circle)
+# # Calcular e exibir a quantidade total
+# total = status_redacao_total['Quantidade'].sum()
+# plt.text(0, -0.4, 'Candidatos Presentes: {}'.format(total), ha='center', va='center', fontsize=10)
+# plt.title('Panorama de Candidatos de Escola Pública e Particular', y = 1.01)
 # plt.show()
 
+    
+""" AXIS 1 E 2 - STATUS REDAÇÃO / PUBLICA E PRIVADA """
 
+# print(status_redacao_anuladas)
+# print(status_redacao_OK)
+
+# Criar a figura e a grade de subplots
+fig = plt.figure(figsize=(12, 6))
+gs = gridspec.GridSpec(1, 2, width_ratios=[3, 1])
+
+# Primeiro subplot: Gráfico de Linhas
+ax1 = plt.subplot(gs[0])
+sns.lineplot(data=status_redacao_anuladas, 
+             x='TP_STATUS_REDACAO', y='Quantidade', hue='TP_ESCOLA', style='TP_ESCOLA',
+               markers=['o', 's'], ax=ax1, palette ='OrRd')
+ax1.set_title('Redações Zeradas')
+ax1.set_xlabel('Motivo da anulação')
+ax1.set_ylabel('Quantidade')
+ax1.legend(title='Tipo de Escola')
+
+ax1.spines['left'].set_visible(False)
+ax1.spines['right'].set_visible(False)
+ax1.spines['top'].set_visible(False)
+# TICSKs
+ax1.tick_params(axis='y', colors='grey')
+ax1.tick_params(axis='x', colors='grey', rotation = 20)
+# Grid
+ax1.yaxis.grid(True, color = 'lightgrey', alpha=0.5)
+# Valores nos vértices
+for line in ax1.lines:
+    x_values = line.get_xdata()
+    y_values = line.get_ydata()
+    line_color = line.get_color()
+    for x, y in zip(x_values, y_values):
+        ax1.annotate(str(y), xy=(x, y), xytext=(4, 6), textcoords='offset points', color=line_color)
+
+# Segundo subplot: Gráfico de Pizza
+ax2 = plt.subplot(gs[1])
+wedges, texts = ax2.pie(status_redacao_OK['Quantidade'], startangle=143, colors=novas_cores, wedgeprops=dict(width=0.2))
+ax2.set_title('Redações Válidas')
+
+# Exibir as quantidades como números nas fatias
+total = sum(status_redacao_OK['Quantidade'])
+percentages = status_redacao_OK['Quantidade'] / total * 100
+
+for wedge, text, percentage in zip(wedges, texts, percentages):
+    wedge.set_edgecolor('white')  # Adiciona borda branca nas fatias
+    text.set_text(f'{percentage:.1f}%')  # Exibe a porcentagem como texto
+
+# Exibir o valor total no centro
+ax2.text(0, 0, format(total), ha='center', va='center', fontsize=12, color='grey')
+
+fig.suptitle('Status das redações (Candidatos de escolas Públicas/Privadas)', fontweight = 'bold')
+
+# Ajustar o layout
+plt.tight_layout()
+
+# Exibir o gráfico
+plt.show()
 
 
 # # Transformar as colunas em linhas utilizando o melt
