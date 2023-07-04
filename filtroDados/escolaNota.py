@@ -79,6 +79,12 @@ print(media_tipoEscola_porUF)
 
 
 
+df_filtrado_geral = df_notaEscola[df_notaEscola['ELIMINADOS_CONC'] == 'Presente']
+df_notaGeral_histograma = df_notaEscola[['NU_INSCRICAO', 'MEDIA_GERAL']]
+
+print(df_notaGeral_histograma.head())  
+
+
 
 
 
@@ -92,6 +98,24 @@ PLOTAGEM
 
 cores2 = sns.color_palette("Set2")
 media_raca_sorted = media_raca.sort_values('Cor/Raça')
+
+""" HistPlot - MÉDIA DE NOTA GERAL POR PRESENTES """
+# sns.set()
+# sns.histplot(data=df_notaGeral_histograma, x='MEDIA_GERAL',color="#ed6044",
+#               bins=50, kde=True)
+# # Configurações adicionais
+# plt.xlabel('Nota Média')
+# plt.ylabel('Quantidade de candidatos')
+# plt.title('Densidade da Nota Média')
+
+# plt.yticks(color = 'grey')
+# plt.xticks(range(0, 900, 50), color='grey', fontsize = 9,
+#            rotation = 40)
+
+
+# plt.show()
+
+
 
 """ Barplot - média por raça--------------------------------------------------------"""
 # plt.figure(figsize=(10, 6))

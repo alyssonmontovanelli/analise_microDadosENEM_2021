@@ -92,3 +92,14 @@ mapeamento_escolaridade_responsavel = {
     'G': 'Pós-graduação',
     'H': 'Sem resposta'
 }
+
+mapeamento_status_redacao = {
+    1.0: 'Sem Problemas',
+    2.0: 'Anulada',
+    3.0: 'Cópia Texto Motiador',
+    4.0: 'Em Branco',
+    6.0: 'Fuga ao Tema',
+    7.0: 'Tipo Texto Incorreto',
+    8.0: 'Texto Insuficiente',
+    9.0: 'Parte Desconectada'
+}
