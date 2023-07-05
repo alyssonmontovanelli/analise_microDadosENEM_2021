@@ -109,36 +109,18 @@ PLOTAGEM
 
 
 
-
-cores2 = sns.color_palette("Set2")
-
-
-
-""" REGRESSÃO """
-# # Plot sepal width as a function of sepal_length across days
-# g = sns.lmplot(
-#     data=penguins,
-#     x="bill_length_mm", y="bill_depth_mm", hue="species",
-#     height=5
-# )
-
-# # Use more informative axis labels than are provided by default
-# g.set_axis_labels("Snoot length (mm)", "Snoot depth (mm)")
-
 """CATPLOT - Quantidade por faixa salarial / RAÇA - Quantidade"""
 # g = sns.catplot(
 #     data=renda_porRaca_presente, kind="bar",
 #     x="Q006", y="Quantidade", hue="TP_COR_RACA",
-#     errorbar="sd", palette="Set2", height=6,aspect=1.5
+#     errorbar="sd", palette="OrRd", height=6,aspect=1.5
 # )
 # ax = g.facet_axis(0, 0)
-# ax.set_xlabel(ax.get_xlabel(), fontweight='bold')
-# ax.set_ylabel(ax.get_ylabel(), fontweight='bold')
 
 # g.despine(left=True)
 # g.set_axis_labels("Renda Mensal Familiar (R$)", "Qtde candidatos")
-# plt.xticks(rotation=65)
-# ax.xaxis.set_tick_params(labelsize=8)
+# plt.xticks(rotation=65, color='grey')
+# ax.xaxis.set_tick_params(labelsize=9)
 # g.legend.set_title("Cor/Raça")
 # plt.title("Relação Quantidade de Candidato/ Renda/ Raça", y=1.03)
 # # Adicionar linhas de grade a cada 30.000 unidades no eixo Y
@@ -153,23 +135,20 @@ cores2 = sns.color_palette("Set2")
 # plt.show()
 
 
-
 """CATPLOT - Quantidade por faixa salarial / RAÇA - Nota Média"""
 # g = sns.catplot(
 #     data=renda_raca_notasENEM, kind="bar",
 #     x="Q006", y="Nota Média", hue="TP_COR_RACA",
-#     errorbar="sd", palette="Set2", height=6,aspect=1.5
+#     errorbar="sd", palette="OrRd", height=6,aspect=1.5
 # )
 # ax = g.facet_axis(0, 0)
-# ax.set_xlabel(ax.get_xlabel(), fontweight='bold')
-# ax.set_ylabel(ax.get_ylabel(), fontweight='bold')
 
 # g.despine(left=True)
 # g.set_axis_labels("Renda Mensal Familiar (R$)", "Nota Média")
-# plt.xticks(rotation=65)
+# plt.xticks(rotation=65, color='grey')
 # # plt.yticks(color = 'grey')
 # plt.ylim(400, 700)
-# ax.xaxis.set_tick_params(labelsize=8)
+# ax.xaxis.set_tick_params(labelsize=9)
 # g.legend.set_title("Cor/Raça")
 # plt.title("Média de notas por Cor/Raça e Renda", y=1.03)
 # plt.yticks(range(400, 701, 25), color='grey')
@@ -192,11 +171,11 @@ cores2 = sns.color_palette("Set2")
 # # Plotar o gráfico de linhas
 # g = sns.lineplot(
 #     data=df_melted, x='Nota', y='Valor', hue='Q025',
-#     palette='Set2', markers=True, style='Q025'
+#     palette='OrRd', markers=True, style='Q025'
 # )
 # for _, row in df_melted.iterrows():
 #     g.annotate(round(row['Valor'], 2), (row['Nota'], row['Valor']),
-#                textcoords="offset points",fontsize=8, xytext=(0,10), ha='center')
+#                textcoords="offset points",fontsize=8, color='grey', xytext=(0,10), ha='center')
 
 # plt.xticks(rotation=20, fontsize = 9, color = 'grey')
 # plt.yticks(fontsize = 9, color = 'grey')
@@ -208,11 +187,9 @@ cores2 = sns.color_palette("Set2")
 # g.spines['left'].set_visible(False)
 
 # #Grid
-# g.yaxis.grid(True, alpha=0.1)
+# g.yaxis.grid(color='lightgrey', alpha=0.5)
 # g.set_axisbelow(True)
 # plt.ylim(400, 700)
-# g.set_xlabel(g.get_xlabel(), fontweight='bold')
-# g.set_ylabel(g.get_ylabel(), fontweight='bold')
 # plt.title('Desempenho com base no acesso à internet', y = 1.03)
 # plt.legend(bbox_to_anchor=(1.05, 0.5), loc='center left')
 # plt.show()
@@ -274,20 +251,5 @@ cores2 = sns.color_palette("Set2")
 
 
 ''''''
-
-
-
-# Load an example dataset with long-form data
-# fmri = sns.load_dataset("fmri")
-
-# Plot the responses for different events and regions
-# g2 = sns.lineplot(x="Q006", y="Quantidade",
-#              hue="TP_COR_RACA",
-#              data=renda_porRaca_presente)
-# #Grid
-# g2.yaxis.grid(True, alpha=0.1)
-# g2.set_axisbelow(True)
-# plt.show()
-
 
 

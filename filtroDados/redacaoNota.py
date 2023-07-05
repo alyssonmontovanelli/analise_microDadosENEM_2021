@@ -100,18 +100,15 @@ novas_cores = sns.color_palette("OrRd", n_colors=2)
 # # Transformar as colunas em linhas utilizando o melt
 # df_melted = nota_porTipoEscola.melt(id_vars='TP_ESCOLA', var_name='Competência', value_name='Nota')
 
-# # Get a list of unique colors for each line
 # unique_lines = df_melted['TP_ESCOLA'].unique()
 # colors = sns.color_palette('OrRd', len(unique_lines))
 
-# # Plot the line plot
 # plt.figure(figsize=(12, 6))
 # g = sns.lineplot(
 #     data=df_melted, x='Competência', y='Nota', hue='TP_ESCOLA',
 #     palette=colors, markers=True, style='TP_ESCOLA'
 # )
 
-# # Add the values to the data points with matching colors
 # for _, row in df_melted.iterrows():
 #     color = colors[unique_lines.tolist().index(row['TP_ESCOLA'])]  # Get the color for the current line
 #     g.annotate(
@@ -137,7 +134,6 @@ novas_cores = sns.color_palette("OrRd", n_colors=2)
 # plt.title('Nota média - Competências das Redações / Tipo Escola', y=1.03)
 # plt.legend(bbox_to_anchor=(1.05, 0.5), loc='center left')
 
-# # Display the plot
 # plt.show()
 
 
@@ -222,4 +218,3 @@ novas_cores = sns.color_palette("OrRd", n_colors=2)
 # # Exibir o gráfico
 # plt.show()
 
-""" LINEPLOT - MÉDIA DE NOTAS POR COMPETENCIAS E TIPO ESCOLA """
