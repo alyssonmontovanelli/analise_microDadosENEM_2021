@@ -186,7 +186,7 @@ cores2 = sns.color_palette("Set2")
 # plt.show()
 
 
-""" LINEPLOT - NOTA MÉDIA POR TIPO DE ESCOLA -------------------------------------------"""
+""" LINEPLOT - NOTA MÉDIA POR ACESSO A INTERNET -------------------------------------------"""
 # # Transformar as colunas em linhas utilizando o melt
 # df_melted = nota_internet.melt(id_vars='Q025', var_name='Nota', value_name='Valor')
 # # Plotar o gráfico de linhas

@@ -5,7 +5,7 @@ import seaborn as sns
 import statsmodels.api as sm
 
 #panorama presença/faltas por região/sexo/raça
-colPresenca = ['NU_INSCRICAO', 'TP_SEXO', 'TP_COR_RACA',
+colPresenca = ['NU_INSCRICAO', 'TP_SEXO', 'TP_COR_RACA', 'TP_ESCOLA',
                    'SG_UF_PROVA', 'TP_PRESENCA_MT', 'TP_PRESENCA_LC']
 
 #panorama tipo de escola / nota final / redação
@@ -102,4 +102,24 @@ mapeamento_status_redacao = {
     7.0: 'Tipo Texto Incorreto',
     8.0: 'Texto Insuficiente',
     9.0: 'Parte Desconectada'
+}
+
+mapeamento_competencia_redacao = {
+    'NU_NOTA_COMP1': 'Competência 1',
+    'NU_NOTA_COMP2': 'Competência 2',
+    'NU_NOTA_COMP3': 'Competência 3',
+    'NU_NOTA_COMP4': 'Competência 4',
+    'NU_NOTA_COMP5': 'Competência 5',
+    'NU_NOTA_REDACAO': 'Média Redação'
+}
+
+mapeamento_eliminados = {
+    'Eliminado': 'Eliminados',
+    'Presente': 'Presentes'
+}
+
+mapeamento_por_tipoEscola_rosca = {
+    1: 'Escola Não Informada',
+    2: 'Oriundos de Escola Pública',
+    3: 'Oriundos de Escola Privada'
 }
