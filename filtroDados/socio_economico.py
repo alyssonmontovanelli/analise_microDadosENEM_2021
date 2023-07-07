@@ -27,10 +27,6 @@ df_socioEconomico['Q025'].fillna(value = 'A', inplace = True)
 
 
 '''Consultas'''
-# Principais características socioeconomicas dos candidatos
-panoramaGeral_social = df_socioEconomico.groupby(['Q001','Q002','Q003','Q004','Q005','Q006','Q025'])\
-                                 [['Q001','Q002','Q003','Q004','Q005','Q006','Q025']].count()
-
 # relação entre o acesso à internet e desempenho no ENEM 2021
 nota_internet = df_socioEconomico[df_socioEconomico['ELIMINADOS_CONC'] == 'Presente']\
                 .groupby('Q025')['NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'NU_NOTA_MT', 'NU_NOTA_REDACAO', 'MEDIA_GERAL']\
