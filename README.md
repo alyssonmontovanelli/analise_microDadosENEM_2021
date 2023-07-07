@@ -31,13 +31,13 @@
 <h3>Análise exploratória</h3>
 
 <p>Formato dos dados CSV, shape(3.389.832 x 77):</P>
-<img src="graphics\readme\arquivo_csv.png" alt="Descrição da imagem" width="600" height="200">
+<img src="graphics\readme\arquivo_csv.png" alt="Descrição da imagem" width="750" height="400">
 <br><br>
 <p>Criação de arrays com os nomes das colunas necessárias a cada análise:</P>
-<img src="graphics\readme\utils.png" alt="Descrição da imagem" width="600" height="200">
+<img src="graphics\readme\utils.png" alt="Descrição da imagem" width="750" height="400">
 <br><br>
 <p>Já nos arquivos de cada análise, preparei os dados com base na sequência: criação do dataframe utilizando o array correspondente de 'utils.py' / verificação de valores ausentes ou nulos / criação de uma coluna com valores 'Presente' ou 'Eliminado', com base nos valores ausentes das notas de cada disciplina / criação de coluna para a nota média geral de cada inscrito. No caso abaixo, como as quantidades de valores ausentes das colunas "Q00.." são inexpressivas, atribuí valores recorrentes. </P>
-<img src="graphics\readme\utils2.png" alt="Descrição da imagem" width="600" height="200">
+<img src="graphics\readme\utils2.png" alt="Descrição da imagem" width="750" height="400">
 <br><br>
 <p>Após isso, iniciei as consultas para posterior plotagem e confecção de relatório final, que está postado no Medium:</P>
-<img src="graphics\readme\consultas.png" alt="Descrição da imagem" width="600" height="200">
+<img src="graphics\readme\consultas.png" alt="Descrição da imagem" width="750" height="400">
