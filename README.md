@@ -21,7 +21,7 @@
  ➜ <b>redacaoNota.py</b> <br>
  Modelagem do panorama geral e status das redações do ENEM, bem como do desempenho dos estudantes<br>
  ➜ <b>socio_economico.py</b> <br>
- Modelagem dos dados referente ao fator socioeconomico dos candidatos, e o impacto deste no desempenho final
+ Modelagem dos dados referente ao fator socioeconomico dos candidatos, e o impacto deste no desempenho final<br>
  ➜ <b>utils.py</b>
  arquivo destinados aos import's, arrays com os filtros das tabelas e dicionários para conversão dos dados.
  <li>Arquivo 'graphics'</li>
