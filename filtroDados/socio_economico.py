@@ -1,16 +1,10 @@
 from utils import *
 
-df_socioEconomico = pd.read_csv("C:\Projetos Pessoais\DataScience\/0_dados_pesados\data\MICRODADOS_ENEM_2021.csv", sep= ";", encoding="ISO-8859-1", usecols=col_socioEconomico)
+df_socioEconomico = pd.read_csv("C:\Projetos Pessoais\DataScience\/0_dados_pesados\data\MICRODADOS_ENEM_2021.csv",\
+                                 sep= ";", encoding="ISO-8859-1", usecols=col_socioEconomico)
 
-'''  MEMENTO ---
-Q001 - Até que série seu pai, ou o homem responsável por você, estudou?
-Q002 - Até que série sua mãe, ou a mulher responsável por você, estudou?
-Q003 - Ocupação do seu pai, ou a homem responsável por você, estudou?
-Q004 - Ocupação da sua mãe, ou a mulher responsável por você, estudou?
-Q005 - Incluindo você, quantas pessoas moram atualmente em sua residência?
-Q006 - Qual é a renda mensal de sua família? (Some a sua renda com a dos seus familiares.
-Q025 - Na sua residência tem acesso à Internet?
-'''
+print(f"Levantamento de dados ausentes:\
+      \n{df_socioEconomico.isna().sum()}")
 # Criação coluna eliminados, para todos os candidatos, com base em isna() em cada prova
 df_socioEconomico['ELIMINADOS_CONC'] = np.where((df_socioEconomico['NU_NOTA_CN'].isna())\
                                          | (df_socioEconomico['NU_NOTA_CH'].isna())\
@@ -106,14 +100,16 @@ df_melted2['Responsavel'] = df_melted2['Responsavel'].str.replace('Nota MediaQ00
 '''
 PLOTAGEM
 '''
+novas_cores = sns.color_palette("OrRd", n_colors=3)
 
 
 
 """CATPLOT - Quantidade por faixa salarial / RAÇA - Quantidade"""
+cores_adaptadas = ['#c2150d','#fdcf99', '#f77e52']
 # g = sns.catplot(
 #     data=renda_porRaca_presente, kind="bar",
 #     x="Q006", y="Quantidade", hue="TP_COR_RACA",
-#     errorbar="sd", palette="OrRd", height=6,aspect=1.5
+#     errorbar="sd", palette=cores_adaptadas, height=6,aspect=1.5
 # )
 # ax = g.facet_axis(0, 0)
 
@@ -128,18 +124,46 @@ PLOTAGEM
 # max_value = max(renda_porRaca_presente['Quantidade'])
 # y_values = range(0, max_value + step, step)
 # for y in y_values:
-#     plt.axhline(y=y, color='gray', linestyle='-', linewidth=0.2)
+#     plt.axhline(y=y, color='gray', linewidth=0.2)
 #     plt.text(-0.6, y, str(y), color='gray', ha='right', va='center', fontsize=9)
 # plt.yticks([])
 # ax.yaxis.set_label_coords(-0.08, 0.5)  # Ajuste o valor conforme necessário
 # plt.show()
 
+"""TESTE"""
+# g = sns.catplot(
+#     data=renda_porRaca_presente, kind="bar",
+#     x="Q006", y="Quantidade", hue="TP_COR_RACA",
+#     errorbar="sd", palette=cores_adaptadas, height=6,aspect=1.5
+# )
+# ax = g.facet_axis(0, 0)
 
-"""CATPLOT - Quantidade por faixa salarial / RAÇA - Nota Média"""
+# g.despine(left=True)
+# g.set_axis_labels("Renda Mensal Familiar (R$)", "Qtde candidatos")
+# plt.xticks(rotation=65, color='grey')
+# # plt.yticks(color = 'grey')
+# ax.xaxis.set_tick_params(labelsize=9)
+# g.legend.set_title("Cor/Raça")
+# plt.title("Média de notas por Cor/Raça e Renda", y=1.03)
+# plt.yticks(range(0, 300001, 20000), color='grey')
+
+# # Adicionar linhas de grade com intervalos de 25 em 25
+# for y in range(0, 300001, 20000):
+#     plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
+
+# ax.xaxis.set_tick_params(labelsize=8)
+# g.legend.set_title("Cor/Raça")
+# plt.title("Relação Quantidade de Candidato/ Renda/ Raça", y=1.03)
+
+# ax.yaxis.set_label_coords(-0.08, 0.5)  # Ajuste o valor conforme necessário
+# plt.show()
+
+
+# """CATPLOT - Quantidade por faixa salarial / RAÇA - Nota Média"""
 # g = sns.catplot(
 #     data=renda_raca_notasENEM, kind="bar",
 #     x="Q006", y="Nota Média", hue="TP_COR_RACA",
-#     errorbar="sd", palette="OrRd", height=6,aspect=1.5
+#     errorbar="sd", palette=novas_cores, height=6,aspect=1.5
 # )
 # ax = g.facet_axis(0, 0)
 
@@ -197,33 +221,33 @@ PLOTAGEM
 
 """ CATPLOT - NOTA MÉDIA COM BASE NA ESCOLARIDADE DOS PAIS"""
 
-# df_merged = pd.merge(escolaridadePai_nota, escolaridadeMae_nota, on='Nível de Escolaridade', suffixes=('Q001', 'Q002'))
+df_merged = pd.merge(escolaridadePai_nota, escolaridadeMae_nota, on='Nível de Escolaridade', suffixes=('Q001', 'Q002'))
 
-# df_melted = df_merged.melt(id_vars='Nível de Escolaridade', var_name='Variável', value_name='Média da Nota')
+df_melted = df_merged.melt(id_vars='Nível de Escolaridade', var_name='Variável', value_name='Média da Nota')
 
-# df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ001', 'Pai ou homem responsável')
-# df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ002', 'Mãe ou mulher responsável')
+df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ001', 'Pai ou homem responsável')
+df_melted['Variável'] = df_melted['Variável'].str.replace('meanQ002', 'Mãe ou mulher responsável')
 
-# g4 = sns.catplot(data=df_melted, x='Nível de Escolaridade', 
-#                  y='Média da Nota', palette="OrRd",
-#                  hue='Variável',aspect=1.5, kind='bar')
+g4 = sns.catplot(data=df_melted, x='Nível de Escolaridade', 
+                 y='Média da Nota', palette="OrRd",
+                 hue='Variável',aspect=1.5, kind='bar')
 
-# ax = g4.facet_axis(0, 0)
-# g4.despine(left=True)
-# g4.set_axis_labels("Escolaridade dos responsáveis", "Nota Média")
-# plt.xticks(rotation=40, color='grey')
-# # plt.yticks(color = 'grey')
-# plt.ylim(400, 626)
-# ax.xaxis.set_tick_params(labelsize=8)
-# g4.legend.set_title("Índice")
-# plt.title("Nota Média por Nível de Escolaridade dos responsáveis", y=1.03)
-# plt.yticks(range(400, 626, 25), color='grey', fontsize = 8)
+ax = g4.facet_axis(0, 0)
+g4.despine(left=True)
+g4.set_axis_labels("Escolaridade dos responsáveis", "Nota Média")
+plt.xticks(rotation=40, color='grey')
+# plt.yticks(color = 'grey')
+plt.ylim(400, 626)
+ax.xaxis.set_tick_params(labelsize=8)
+g4.legend.set_title("Índice")
+plt.title("Nota Média por Nível de Escolaridade dos responsáveis", y=1.03)
+plt.yticks(range(400, 626, 25), color='grey', fontsize = 8)
 
-# # Adicionar linhas de grade com intervalos de 25 em 25
-# for y in range(400, 626, 25):
-#     plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
+# Adicionar linhas de grade com intervalos de 25 em 25
+for y in range(400, 626, 25):
+    plt.axhline(y, color='lightgrey', linewidth=0.5, zorder = 0)
 
-# plt.show()
+plt.show()
 
 
 """ CATPLOT - NOTA MÉDIA COM BASE NA OCUPAÇÃO DOS PAIS"""

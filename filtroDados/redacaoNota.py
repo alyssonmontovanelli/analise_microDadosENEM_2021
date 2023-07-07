@@ -77,11 +77,12 @@ PLOTAGEM
 
 
 """ QUANTIDADE ALUNOS PUBLICA / PRIVADA """
-novas_cores = sns.color_palette("OrRd", n_colors=2)
-# plt.figure(figsize=(12, 6))
+novas_cores = sns.color_palette("OrRd", n_colors=2)[::-1]
+
+# plt.figure(figsize=(10, 6))
 # # Desenhar o gráfico de pizza com as quantidades
 # wedges, texts, autotexts = plt.pie(status_redacao_total['Quantidade'], labels=status_redacao_total['TP_ESCOLA'],
-#                                    autopct='%1.1f%%', startangle=143,colors=novas_cores)
+#                                    autopct='%1.1f%%', startangle=143, colors=novas_cores)
 # # Configurar as propriedades dos textos
 # plt.setp(autotexts, size=12, color='black')
 # # Limpar o círculo central
@@ -90,10 +91,9 @@ novas_cores = sns.color_palette("OrRd", n_colors=2)
 # fig.gca().add_artist(centre_circle)
 # # Calcular e exibir a quantidade total
 # total = status_redacao_total['Quantidade'].sum()
-# plt.text(0, -0.4, 'Candidatos Presentes: {}'.format(total), ha='center', va='center', fontsize=10)
-# plt.title('Panorama de Candidatos de Escola Pública e Particular', y = 1.01)
+# plt.text(0, -0.4, 'Total de Redações: {}'.format(total), ha='center', va='center', fontsize=10)
+# plt.title('Redações entregues - Alunos de Ensino Público e Privado')
 # plt.show()
-
 
 """ LINEPLOT - MÉDIA DE NOTAS POR COMPETENCIAS E TIPO ESCOLA """
 

@@ -81,7 +81,6 @@ presenca3['TP_ESCOLA'] = presenca3['TP_ESCOLA'].replace(mapeamento_por_tipoEscol
 
 
 
-
 # print(presenca3)
 """ PLOTAGEM """
 
@@ -105,7 +104,7 @@ presenca3['TP_ESCOLA'] = presenca3['TP_ESCOLA'].replace(mapeamento_por_tipoEscol
 #                   labels=presenca3['TP_ESCOLA'],
 #                   wedgeprops=dict(edgecolor='white'),
 #                   colors=cores_categorias,
-#                   textprops={'fontweight': 'bold', 'fontsize':10})  # Define a cor do texto como branco e rotaciona em -30 graus
+#                   textprops={'fontweight': 'bold', 'fontsize':9})  # Define a cor do texto como branco e rotaciona em -30 graus
 
 # # Colorir Labels de gráf
 # for label, color in zip(grafico1[1], cores_categorias):
@@ -116,18 +115,19 @@ presenca3['TP_ESCOLA'] = presenca3['TP_ESCOLA'].replace(mapeamento_por_tipoEscol
 #                   radius=0.9,
 #                   labels=presenca2['ELIMINADOS_CONC'],
 #                   colors=cores_subCategorias,
-#                   labeldistance=0.66,
+#                   labeldistance=0.68,
 #                   wedgeprops=dict(edgecolor='white'),
 #                   pctdistance=0.53,
 #                   rotatelabels=True,
 #                   autopct=lambda pct: int(round(pct * sum(presenca2['NU_INSCRICAO']) / 100)),
-#                   textprops={'color': 'black', 'fontsize': 8})  # Define a cor do texto como branco e rotaciona em -30 graus
+#                   textprops={'color': 'black', 'fontsize': 7})  # Define a cor do texto como branco e rotaciona em -30 graus
 
 # # Limpar o centro do círculo
 # centre_circle = plt.Circle((0, 0), 0.6, fc='white')
 # fig.gca().add_artist(centre_circle)
 
 # # Rótulos e anotações
-# plt.annotate(text='Total: ' + str(int(sum(presenca2['NU_INSCRICAO']))), xy=(-0.3, 0), fontsize= 12, color = '#f77e52', fontweight='bold')
+# plt.annotate(text='Total: 3.389.832', xy=(-0.3, 0), fontsize= 12, color = '#f77e52', fontweight='bold')
 # plt.title('Total de Inscritos no ENEM/2021', fontsize=12)
 # plt.show()
+
